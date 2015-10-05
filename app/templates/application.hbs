@@ -1,3 +1,6 @@
-<h2 id="title">Welcome to Ember</h2>
-
-{{outlet}}
+<!-- app/templates/application.hbs -->
+<ul>
+  {{#each songs as |song|}}
+    <li>{{song.title}} by {{song.band}} {{song.rating}}</li>
+  {{/each}}
+</ul>
