@@ -19,3 +19,46 @@ html, body {
   color: #555555;
   background-color: #e7e7e7;
 }
+
+.empty-list {
+  min-height: 100px;
+  text-align: center;
+}
+
+.empty-list .empty-message {
+  display: inline-block;
+  color: #555;
+  line-height: 100px;
+}
+
+.band-link .pointer {
+  float: right;
+  display: none;
+}
+
+.band-link.active .pointer {
+  display: block;
+}
+
+.new-band {
+  width: 82%;
+}
+
+.new-band-button {
+  float: right;
+  padding: 3px 10px;
+}
+
+.new-song {
+  float: left;
+  width: 50%;
+}
+
+.new-song-button {
+  padding: 3px 10px;
+  margin-left: 20px;
+}
+
+.rating-panel {
+  float: right;
+}

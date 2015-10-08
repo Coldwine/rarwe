@@ -1,17 +1,7 @@
 import Ember from 'ember';
 
-var Band = Ember.Object.extend({
-  name: '',
-  slug: Ember.computed('name', function(){
-    return this.get('name').dasherize();
-  })
-});
-
-var Song = Ember.Object.extend({
-  title: '',
-  rating: 0,
-  band: ''
-});
+import Band from '../models/band';
+import Song from '../models/song';
 
 var blackDog = Song.create({
   title: 'Black Dog',
@@ -39,7 +29,7 @@ var pretender = Song.create({
 
 var BandsCollection = Ember.Object.extend({
   content: [],
-  sortProperties: ['name:desc'],
+  sortProperties: ['name:asc'],
   sortedContent: Ember.computed.sort('content', 'sortProperties')
 });
 
@@ -56,5 +46,15 @@ bands.get('content').pushObjects([ledZeppelin, pearlJam, fooFighters]);
 export default Ember.Route.extend({
   model: function() {
     return bands.get('sortedContent');
+  },
+  actions: {
+    createBand: function() {
+      const controller = this.get('controller');
+      var name = controller.get('name');
+      var band = Band.create({name: name});
+      bands.get('sortedContent').pushObject(band);
+      controller.set('name', '');
+      this.transitionTo('bands.band.songs', band);
+    }
   }
 });
