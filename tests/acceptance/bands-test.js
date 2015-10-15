@@ -72,12 +72,7 @@ test('Create a new song in two steps', function(assert) {
         }
       }
     ]);
-    this.post('/songs', function() {
-      var songs = JSON.stringify({
-        song: {id: 1, title: 'Killer Cars'}
-      });
-      return [200, {'Content-Type': 'application/vnd.api+json'}, songs];
-    });
+    httpStubs.stubCreateSong(this, 1);
   });
 
   selectBand('Radiohead');
@@ -88,5 +83,21 @@ test('Create a new song in two steps', function(assert) {
   andThen(function() {
     assertElement(assert, '.songs .song:contains("Killer Cars")',
       'Creates the song and displays it in the list');
+  });
+});
+
+test('Sort songs in various ways', function(assert) {
+  server = new Pretender(function() {
+    httpStubs.stubBands(this, [
+      {
+        id: 1,
+        attributes: {
+          name: 'Them Crooked Vultures',
+        }
+      }
+    ]);
+    httpStubs.stubSongs(this, 1, [
+
+    ]);
   });
 });

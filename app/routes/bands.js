@@ -1,21 +1,20 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function() {
+  model() {
     return this.store.findAll('band');
   },
   actions: {
-    createBand: function() {
-      var route = this;
+    createBand() {
       var controller = this.get('controller');
       var band = this.store.createRecord('band',
         controller.getProperties('name'));
-      band.save().then(function() {
+      band.save().then(() => {
         controller.set('name', '');
-        route.transitionTo('bands.band.songs', band);
+        this.transitionTo('bands.band.songs', band);
       });
     },
-    didTransition: function() {
+    didTransition() {
       Ember.$(document).attr('title', 'Bands - Rock & Roll');
     },
   },
