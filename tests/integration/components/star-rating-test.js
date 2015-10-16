@@ -13,8 +13,8 @@ test('Renders the full and empty stars correctly', function(assert) {
   this.set('song', song);
   this.set('maxRating', 5);
 
-  this.render(hbs
-    `{{star-rating item=song rating=song.rating maxRating=maxRating}}`
+  this.render(
+    hbs`{{star-rating item=song rating=song.rating maxRating=maxRating}}`
   );
 
   assert.equal(this.$('.glyphicon-star').length, 4,

@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
-import '../helpers/asserts';
-import '../helpers/async-helpers';
+import './asserts';
+import './async-helpers';
 
 export default function startApp(attrs) {
   let application;
