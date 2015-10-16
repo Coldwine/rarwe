@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import {capitalize as capitalizeWords} from '../../../helpers/capitalize';
 
 export default Ember.Route.extend({
-  model: function() {
+  model() {
     return this.modelFor('bands.band');
   },
   actions: {
-    createSong: function() {
+    createSong() {
       var controller = this.get('controller');
       var band = this.modelFor('bands.band');
       var song = this.store.createRecord('song', {
@@ -16,10 +17,10 @@ export default Ember.Route.extend({
         controller.set('title', '');
       });
     },
-    didTransition: function() {
+    didTransition() {
       var band = this.modelFor('bands.band');
-      Ember.$(document)
-        .attr('title', `${band.get('name')} songs - Rock & Roll`);
+      var name = capitalizeWords(band.get('name'));
+      Ember.$(document).attr('title', `${name} songs - Rock & Roll`);
     },
   },
 });
