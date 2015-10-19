@@ -7,9 +7,9 @@ export default Ember.Route.extend({
   },
   actions: {
     createSong() {
-      var controller = this.get('controller');
-      var band = this.modelFor('bands.band');
-      var song = this.store.createRecord('song', {
+      const controller = this.get('controller');
+      const band = this.modelFor('bands.band');
+      const song = this.store.createRecord('song', {
         title: controller.get('title'),
         band: band
       });
@@ -18,8 +18,8 @@ export default Ember.Route.extend({
       });
     },
     didTransition() {
-      var band = this.modelFor('bands.band');
-      var name = capitalizeWords(band.get('name'));
+      const band = this.modelFor('bands.band');
+      const name = capitalizeWords(band.get('name'));
       Ember.$(document).attr('title', `${name} songs - Rock & Roll`);
     },
   },

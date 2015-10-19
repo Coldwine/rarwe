@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import wait from '../utils/wait';
 
 export default Ember.Route.extend({
   model() {
@@ -7,8 +6,8 @@ export default Ember.Route.extend({
   },
   actions: {
     createBand() {
-      var controller = this.get('controller');
-      var band = this.store.createRecord('band',
+      const controller = this.get('controller');
+      const band = this.store.createRecord('band',
         controller.getProperties('name'));
       band.save().then(() => {
         controller.set('name', '');

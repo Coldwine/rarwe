@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   actions: {
-    willTransition: function(transition) {
-      var controller = this.get('controller');
-      var leave;
+    willTransition(transition) {
+      const controller = this.get('controller');
+      let leave;
 
       if (controller.get('isEditing')) {
         leave = window.confirm(
@@ -17,9 +17,9 @@ export default Ember.Route.extend({
         }
       }
     },
-    save: function() {
-      var controller = this.get('controller');
-      var band = controller.get('model');
+    save() {
+      const controller = this.get('controller');
+      const band = controller.get('model');
       return band.save();
     }
   },

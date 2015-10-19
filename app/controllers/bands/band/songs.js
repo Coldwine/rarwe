@@ -1,18 +1,16 @@
 import Ember from 'ember';
 import {capitalize} from '../../../helpers/capitalize';
 
-export default Ember.Controller.extend({
+const {Controller, computed} = Ember;
+
+export default Controller.extend({
   songCreationStarted: false,
   title: '',
-  isAddButtonDisabled: Ember.computed('title', function() {
-    return Ember.isEmpty(this.get('title'));
-  }),
-  canCreateSong: Ember.computed('songCreationStarted', 'model.songs.length',
-    function() {
-      return this.get('songCreationStarted') || this.get('model.songs.length');
-    }),
-  newSongPlaceholder: Ember.computed('model.name', function() {
-    var bandName = this.get('model.name');
+  isAddButtonDisabled: computed.empty('title'),
+  hasSongs: computed.bool('model.songs.length'),
+  canCreateSong: computed.or('songCreationStarted', 'hasSongs'),
+  newSongPlaceholder: computed('model.name', function() {
+    const bandName = this.get('model.name');
     return `New ${capitalize(bandName)} song`;
   }),
 
@@ -23,8 +21,8 @@ export default Ember.Controller.extend({
   },
   sortBy: 'ratingDesc',
   searchTerm: '',
-  sortProperties: Ember.computed('sortBy', function() {
-    var options = {
+  sortProperties: computed('sortBy', function() {
+    const options = {
       'ratingDesc': 'rating:desc,title:asc',
       'ratingAsc': 'rating:asc,title:asc',
       'titleDesc': 'title:desc',
@@ -32,11 +30,11 @@ export default Ember.Controller.extend({
     };
     return options[this.get('sortBy')].split(',');
   }),
-  sortedSongs: Ember.computed.sort('matchingSongs', 'sortProperties'),
-  matchingSongs: Ember.computed('model.songs.@each.title', 'searchTerm',
+  sortedSongs: computed.sort('matchingSongs', 'sortProperties'),
+  matchingSongs: computed('model.songs.@each.title', 'searchTerm',
     function() {
-      var searchTerm = this.get('searchTerm').toLowerCase();
-      return this.get('model.songs').filter(function(song) {
+      return this.get('model.songs').filter((song) => {
+        const searchTerm = this.get('searchTerm').toLowerCase();
         return song.get('title').toLowerCase().indexOf(searchTerm) !== -1;
       });
     }),
@@ -44,10 +42,9 @@ export default Ember.Controller.extend({
   // controller actions
   actions: {
     updateRating(params) {
-      var song = params.item;
-      var rating = params.rating;
+      let {item: song, rating} = params;
       if (song.get('rating') === rating) {
-        rating = 0;
+        rating = null;
       }
       song.set('rating', rating);
       song.save();
