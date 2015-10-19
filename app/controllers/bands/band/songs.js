@@ -39,7 +39,6 @@ export default Controller.extend({
       });
     }),
 
-  // controller actions
   actions: {
     updateRating(params) {
       let {item: song, rating} = params;
