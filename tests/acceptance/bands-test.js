@@ -73,6 +73,11 @@ test('Create a new song in two steps', (assert) => {
       }
     ]);
     httpStubs.stubCreateSong(this, 1);
+    this.get('/bands/1/songs', () => {
+      return [
+        200, {'Content-Type': 'application/vnd.api+json'},
+        JSON.stringify({data: []})];
+    });
   });
 
   selectBand('Radiohead');
@@ -100,28 +105,28 @@ test('Sort songs in various ways', (assert) => {
       {
         id: 1,
         attributes: {
-          name: 'Elephants',
+          title: 'Elephants',
           rating: 5
         }
       },
       {
         id: 2,
         attributes: {
-          name: 'New Fang',
+          title: 'New Fang',
           rating: 4
         }
       },
       {
         id: 3,
         attributes: {
-          name: 'Mind Eraser, No Chaser',
+          title: 'Mind Eraser, No Chaser',
           rating: 4
         }
       },
       {
         id: 4,
         attributes: {
-          name: 'Spinning in Daffodils',
+          title: 'Spinning in Daffodils',
           rating: 5
         }
       }
@@ -142,7 +147,7 @@ test('Sort songs in various ways', (assert) => {
 
   andThen(() => {
     assert.equal(currentURL(), '/bands/1/songs?sort=titleDesc');
-    assertTrimmedText(assert, '.song:first', 'Spinning in Daffodils',
+    assertTrimmedText(assert, '.song:first', 'Spinning In Daffodils',
       'The first song is the one that is the last in the alphabet');
     assertTrimmedText(assert, '.song:last', 'Elephants',
       'The last song is the one that is the first in the alphabet');
@@ -154,7 +159,7 @@ test('Sort songs in various ways', (assert) => {
     assert.equal(currentURL(), '/bands/1/songs?sort=ratingAsc');
     assertTrimmedText(assert, '.song:first', 'Mind Eraser, No Chaser',
       'The first song is the lowest ranked, first in the alphabet');
-    assertTrimmedText(assert, '.song:last', 'Spinning in Daffodils',
+    assertTrimmedText(assert, '.song:last', 'Spinning In Daffodils',
       'The last song is the highest ranked, last in the alphabet');
   });
 });

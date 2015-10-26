@@ -30,7 +30,7 @@ function responseItemForSong(data, id) {
 }
 
 export default {
-  stubBands: function(pretender, data) {
+  stubBands(pretender, data) {
     var response = data.map(function(band) {
       return responseItemForBand(band);
     });
@@ -41,7 +41,7 @@ export default {
       ];
     });
   },
-  stubSongs: function(pretender, bandId, data) {
+  stubSongs(pretender, bandId, data) {
     var response = data.map(function(song) {
       return responseItemForSong(song);
     });
@@ -52,7 +52,7 @@ export default {
       ];
     });
   },
-  stubCreateBand: function(pretender, newId) {
+  stubCreateBand(pretender, newId) {
     pretender.post('/bands', function(request) {
       var response = [
         responseItemForBand(JSON.parse(request.requestBody), newId)
@@ -63,7 +63,7 @@ export default {
       ];
     });
   },
-  stubCreateSong: function(pretender, newId) {
+  stubCreateSong(pretender, newId) {
     pretender.post('/songs', function(request) {
       var response = [
         responseItemForSong(JSON.parse(request.requestBody), newId)

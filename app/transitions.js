@@ -10,4 +10,4 @@ export default function() {
     this.toValue(false),
     this.use('fade', {duration: 500})
   );
-};
+}
